@@ -1,0 +1,1027 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>neural_networks &#8212; DataCheese  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'neural_networks';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utils" href="utils.html" />
+    <link rel="prev" title="activations" href="activations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo_full.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo_full.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="api_documentation.html">
+                        API Documentation
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://www.islamicreliefcanada.org/emergencies/turkey-syria-earthquake-appeal/">
+                    Donate to Turkey & Syria
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alvii147/DataCheese" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="api_documentation.html">
+                        API Documentation
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://www.islamicreliefcanada.org/emergencies/turkey-syria-earthquake-appeal/">
+                    Donate to Turkey & Syria
+                  </a>
+                </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alvii147/DataCheese" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="activations.html">activations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">neural_networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="api_documentation.html" class="nav-link">API Documentation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">neural_networks</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="module-datacheese.neural_networks">
+<span id="neural-networks"></span><h1>neural_networks<a class="headerlink" href="#module-datacheese.neural_networks" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="datacheese.neural_networks.BaseLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">BaseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for neural network layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
+layer.</p></li>
+<li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Layer specific parameters.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.BaseLayer.activation">
+<span class="sig-name descname"><span class="pre">activation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer.activation" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Input values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.BaseLayer.activation_derivative">
+<span class="sig-name descname"><span class="pre">activation_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer.activation_derivative" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation derivative function.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is provided, the output is computed directly. If the output
+of antiderivative <code class="docutils literal notranslate"><span class="pre">f</span></code> is provided, the output is computed using the
+antiderivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Input values.</p></li>
+<li><p><strong>f</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Output values of antiderivative function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.BaseLayer.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer.predict" title="Permalink to this definition">#</a></dt>
+<dd><p>Predict output of given inputs using current weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Input values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>y_pred</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.BaseLayer.feed_forward">
+<span class="sig-name descname"><span class="pre">feed_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer.feed_forward" title="Permalink to this definition">#</a></dt>
+<dd><p>Feed forward given training input example.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Given training input.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.BaseLayer.back_propagate">
+<span class="sig-name descname"><span class="pre">back_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer.back_propagate" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform backpropagation using forward layer errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e</strong> (<em>numpy.ndarray</em>) – Errors propagated from forward layer.</p></li>
+<li><p><strong>lr</strong> (<em>float</em>) – Learning rate for weight updates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>e_next</strong> – Errors to be propagated to backward layer.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="datacheese.neural_networks.LinearLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">LinearLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LinearLayer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
+<p>Layer with linear activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
+layer.</p></li>
+<li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.LinearLayer.activation">
+<span class="sig-name descname"><span class="pre">activation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LinearLayer.activation" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Input values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.LinearLayer.activation_derivative">
+<span class="sig-name descname"><span class="pre">activation_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LinearLayer.activation_derivative" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation derivative function.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is provided, the output is computed directly. If the output
+of antiderivative <code class="docutils literal notranslate"><span class="pre">f</span></code> is provided, the output is computed using the
+antiderivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Input values.</p></li>
+<li><p><strong>f</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Output values of antiderivative function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="datacheese.neural_networks.SigmoidLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">SigmoidLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.SigmoidLayer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
+<p>Layer with sigmoid activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
+layer.</p></li>
+<li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.SigmoidLayer.activation">
+<span class="sig-name descname"><span class="pre">activation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.SigmoidLayer.activation" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Input values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.SigmoidLayer.activation_derivative">
+<span class="sig-name descname"><span class="pre">activation_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.SigmoidLayer.activation_derivative" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation derivative function.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is provided, the output is computed directly. If the output
+of antiderivative <code class="docutils literal notranslate"><span class="pre">f</span></code> is provided, the output is computed using the
+antiderivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Input values.</p></li>
+<li><p><strong>f</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Output values of antiderivative function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="datacheese.neural_networks.TanhLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">TanhLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.TanhLayer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
+<p>Layer with hyperbolic tangent activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
+layer.</p></li>
+<li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.TanhLayer.activation">
+<span class="sig-name descname"><span class="pre">activation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.TanhLayer.activation" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Input values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.TanhLayer.activation_derivative">
+<span class="sig-name descname"><span class="pre">activation_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.TanhLayer.activation_derivative" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation derivative function.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is provided, the output is computed directly. If the output
+of antiderivative <code class="docutils literal notranslate"><span class="pre">f</span></code> is provided, the output is computed using the
+antiderivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Input values.</p></li>
+<li><p><strong>f</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Output values of antiderivative function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="datacheese.neural_networks.ReLULayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">ReLULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.ReLULayer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
+<p>Layer with rectified linear unit activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
+layer.</p></li>
+<li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.ReLULayer.activation">
+<span class="sig-name descname"><span class="pre">activation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.ReLULayer.activation" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Input values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.ReLULayer.activation_derivative">
+<span class="sig-name descname"><span class="pre">activation_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.ReLULayer.activation_derivative" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation derivative function.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is provided, the output is computed directly. If the output
+of antiderivative <code class="docutils literal notranslate"><span class="pre">f</span></code> is provided, the output is computed using the
+antiderivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Input values.</p></li>
+<li><p><strong>f</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Output values of antiderivative function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="datacheese.neural_networks.LeakyReLULayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">LeakyReLULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LeakyReLULayer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
+<p>Layer with leaky rectified linear unit activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
+layer.</p></li>
+<li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>default 0.01</em>) – Negative slope <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.LeakyReLULayer.activation">
+<span class="sig-name descname"><span class="pre">activation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LeakyReLULayer.activation" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Input values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.LeakyReLULayer.activation_derivative">
+<span class="sig-name descname"><span class="pre">activation_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LeakyReLULayer.activation_derivative" title="Permalink to this definition">#</a></dt>
+<dd><p>Activation derivative function.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> is provided, the output is computed directly. If the output
+of antiderivative <code class="docutils literal notranslate"><span class="pre">f</span></code> is provided, the output is computed using the
+antiderivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Input values.</p></li>
+<li><p><strong>f</strong> (numpy.ndarray, default <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Output values of antiderivative function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">MultiLayerPerceptron</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Multi-layer percetron feed-forward neural network that implements
+backpropagation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lr</strong> (<em>float</em>) – Learning rate.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datacheese.neural_networks</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="gp">... </span>   <span class="n">MultiLayerPerceptron</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">SigmoidLayer</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">ReLULayer</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate training data:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n_patterns</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_dimensions</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_classes</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_patterns</span><span class="p">,</span> <span class="n">n_dimensions</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_patterns</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Initialize model with 2 hidden layers with ReLU and Sigmoid activations
+respectively:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">MultiLayerPerceptron</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">ReLULayer</span><span class="p">(</span><span class="n">n_dimensions</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">SigmoidLayer</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Train model over 20 epochs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">Epoch: 0, Loss: 0.15181599599950849</span>
+<span class="go">Epoch: 4, Loss: 0.13701115369406147</span>
+<span class="go">Epoch: 8, Loss: 0.11337662383705667</span>
+<span class="go">Epoch: 12, Loss: 0.10121139637335393</span>
+<span class="go">Epoch: 16, Loss: 0.09388681525946835</span>
+</pre></div>
+</div>
+<p>Use model to make predictions:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">Y_pred</span> <span class="o">-</span> <span class="n">Y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">0.05310463606057757</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.add_layer">
+<span class="sig-name descname"><span class="pre">add_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.add_layer" title="Permalink to this definition">#</a></dt>
+<dd><p>Add layer to network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>layer</strong> (<a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><em>BaseLayer</em></a>) – Layer object to add to network.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.predict" title="Permalink to this definition">#</a></dt>
+<dd><p>Predict output of given inputs using current network layers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D array of input patterns.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Y_pred</strong> – 2D array of predicted output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.feed_forward">
+<span class="sig-name descname"><span class="pre">feed_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.feed_forward" title="Permalink to this definition">#</a></dt>
+<dd><p>Feed forward given training input example through each layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – Given training input.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> – Output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.back_propagate">
+<span class="sig-name descname"><span class="pre">back_propagate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.back_propagate" title="Permalink to this definition">#</a></dt>
+<dd><p>Perform backpropagation through layers in the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>numpy.ndarray</em>) – Actual output of last forwarded training input.</p></li>
+<li><p><strong>lr</strong> (<em>float</em>) – Learning rate for weight updates.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Train network weights using training data over given number of epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D array of input patterns.</p></li>
+<li><p><strong>Y</strong> (<em>numpy.ndarray</em>) – 2D array of output patterns.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – Number of epochs to train over.</p></li>
+<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>default 0</em>) – Logging verbosity.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="activations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">activations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="utils.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">utils</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.BaseLayer"><code class="docutils literal notranslate"><span class="pre">BaseLayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.BaseLayer.activation"><code class="docutils literal notranslate"><span class="pre">BaseLayer.activation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.BaseLayer.activation_derivative"><code class="docutils literal notranslate"><span class="pre">BaseLayer.activation_derivative()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.BaseLayer.predict"><code class="docutils literal notranslate"><span class="pre">BaseLayer.predict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.BaseLayer.feed_forward"><code class="docutils literal notranslate"><span class="pre">BaseLayer.feed_forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.BaseLayer.back_propagate"><code class="docutils literal notranslate"><span class="pre">BaseLayer.back_propagate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.LinearLayer"><code class="docutils literal notranslate"><span class="pre">LinearLayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.LinearLayer.activation"><code class="docutils literal notranslate"><span class="pre">LinearLayer.activation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.LinearLayer.activation_derivative"><code class="docutils literal notranslate"><span class="pre">LinearLayer.activation_derivative()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.SigmoidLayer"><code class="docutils literal notranslate"><span class="pre">SigmoidLayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.SigmoidLayer.activation"><code class="docutils literal notranslate"><span class="pre">SigmoidLayer.activation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.SigmoidLayer.activation_derivative"><code class="docutils literal notranslate"><span class="pre">SigmoidLayer.activation_derivative()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.TanhLayer"><code class="docutils literal notranslate"><span class="pre">TanhLayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.TanhLayer.activation"><code class="docutils literal notranslate"><span class="pre">TanhLayer.activation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.TanhLayer.activation_derivative"><code class="docutils literal notranslate"><span class="pre">TanhLayer.activation_derivative()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.ReLULayer"><code class="docutils literal notranslate"><span class="pre">ReLULayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.ReLULayer.activation"><code class="docutils literal notranslate"><span class="pre">ReLULayer.activation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.ReLULayer.activation_derivative"><code class="docutils literal notranslate"><span class="pre">ReLULayer.activation_derivative()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.LeakyReLULayer"><code class="docutils literal notranslate"><span class="pre">LeakyReLULayer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.LeakyReLULayer.activation"><code class="docutils literal notranslate"><span class="pre">LeakyReLULayer.activation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.LeakyReLULayer.activation_derivative"><code class="docutils literal notranslate"><span class="pre">LeakyReLULayer.activation_derivative()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.add_layer"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.add_layer()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.predict"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.predict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.feed_forward"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.feed_forward()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.back_propagate"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.back_propagate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.fit"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.fit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/neural_networks.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner"></div>
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Zahin Zaman.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://sphinx-doc.org/">Sphinx</a> 6.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
