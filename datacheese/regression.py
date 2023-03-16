@@ -18,7 +18,7 @@ class Regression:
     >>> # y = 1 * x_0 + 2 * x_1 + 3
     >>> y = np.dot(X, np.array([1, 2])) + 3
 
-    Fit model using data
+    Fit model using data:
 
     >>> model = Regression()
     >>> model.fit(X, y)
