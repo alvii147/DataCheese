@@ -10,7 +10,7 @@ from .activations import (
     leaky_relu,
     leaky_relu_derivative,
 )
-from .utils import assert_ndarray_shape
+from .utils import assert_ndarray_shape, assert_fitted
 
 
 class BaseLayer:
@@ -362,6 +362,7 @@ class MultiLayerPerceptron:
     """
 
     def __init__(self, lr: float = 0.5):
+        self.fitted = False
         self.lr = lr
         self.layers = []
 
@@ -375,34 +376,6 @@ class MultiLayerPerceptron:
             Layer object to add to network.
         """
         self.layers.append(layer)
-
-    def predict(self, X: NDArray[np.float64]) -> NDArray[np.float64]:
-        """
-        Predict output of given inputs using current network layers.
-
-        Parameters
-        ----------
-        X : numpy.ndarray
-            2D array of input patterns.
-
-        Returns
-        -------
-        Y_pred : numpy.ndarray
-            2D array of predicted output values.
-        """
-        assert_ndarray_shape(X, shape=(None, None))
-
-        # initialize predicted output array
-        Y_pred = np.zeros((X.shape[0], self.layers[-1].n_nodes))
-        # iterate over input patterns
-        for i, x in enumerate(X):
-            # predict output using network layers
-            for layer in self.layers:
-                x = layer.predict(x)
-
-            Y_pred[i] = x
-
-        return Y_pred
 
     def feed_forward(self, x: NDArray[np.float64]) -> NDArray[np.float64]:
         """
@@ -460,10 +433,12 @@ class MultiLayerPerceptron:
         Parameters
         ----------
         X : numpy.ndarray
-            2D array of input patterns.
+            2D array of input patterns of shape ``n x d``, where ``n`` is the
+            number of training examples and ``d`` is the number of dimensions.
 
         Y : numpy.ndarray
-            2D array of output patterns.
+            2D array of output patterns  of shape ``n x c``, where ``n`` is the
+            number of training examples and ``c`` is the number of classes.
 
         epochs : int
             Number of epochs to train over.
@@ -489,3 +464,36 @@ class MultiLayerPerceptron:
             if verbose > 0 and i % int(np.sqrt(epochs)) == 0:
                 # log epoch and mean loss over current epoch
                 print(f'Epoch: {i}, Loss: {np.mean(losses)}')
+
+        # set model as fitted
+        self.fitted = True
+
+    def predict(self, X: NDArray[np.float64]) -> NDArray[np.float64]:
+        """
+        Predict output of given inputs using current network layers.
+
+        Parameters
+        ----------
+        X : numpy.ndarray
+            2D array of input patterns of shape ``m x d``, where ``m`` is the
+            number of testing examples and ``d`` is the number of dimensions.
+
+        Returns
+        -------
+        Y_pred : numpy.ndarray
+            2D array of predicted output values.
+        """
+        assert_fitted(self.fitted, self.__class__.__name__)
+        assert_ndarray_shape(X, shape=(None, None))
+
+        # initialize predicted output array
+        Y_pred = np.zeros((X.shape[0], self.layers[-1].n_nodes))
+        # iterate over input patterns
+        for i, x in enumerate(X):
+            # predict output using network layers
+            for layer in self.layers:
+                x = layer.predict(x)
+
+            Y_pred[i] = x
+
+        return Y_pred

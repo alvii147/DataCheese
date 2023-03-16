@@ -10,7 +10,8 @@ ignore =
     D107,
     D200,
     D107,
-    W503
+    W503,
+    E741
 
 max-line-length = 79
 

@@ -812,23 +812,6 @@ respectively:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.predict" title="Permalink to this definition">#</a></dt>
-<dd><p>Predict output of given inputs using current network layers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D array of input patterns.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Y_pred</strong> – 2D array of predicted output values.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.feed_forward">
 <span class="sig-name descname"><span class="pre">feed_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.feed_forward" title="Permalink to this definition">#</a></dt>
 <dd><p>Feed forward given training input example through each layer.</p>
@@ -866,11 +849,31 @@ respectively:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D array of input patterns.</p></li>
-<li><p><strong>Y</strong> (<em>numpy.ndarray</em>) – 2D array of output patterns.</p></li>
+<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D array of input patterns of shape <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the
+number of training examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p></li>
+<li><p><strong>Y</strong> (<em>numpy.ndarray</em>) – 2D array of output patterns  of shape <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">x</span> <span class="pre">c</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the
+number of training examples and <code class="docutils literal notranslate"><span class="pre">c</span></code> is the number of classes.</p></li>
 <li><p><strong>epochs</strong> (<em>int</em>) – Number of epochs to train over.</p></li>
 <li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>default 0</em>) – Logging verbosity.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datacheese.neural_networks.MultiLayerPerceptron.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.MultiLayerPerceptron.predict" title="Permalink to this definition">#</a></dt>
+<dd><p>Predict output of given inputs using current network layers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D array of input patterns of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
+number of testing examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Y_pred</strong> – 2D array of predicted output values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -955,10 +958,10 @@ respectively:</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.add_layer"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.add_layer()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.predict"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.predict()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.feed_forward"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.feed_forward()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.back_propagate"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.back_propagate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.fit"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.neural_networks.MultiLayerPerceptron.predict"><code class="docutils literal notranslate"><span class="pre">MultiLayerPerceptron.predict()</span></code></a></li>
 </ul>
 </li>
 </ul>

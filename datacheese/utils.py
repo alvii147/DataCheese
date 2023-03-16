@@ -1,14 +1,7 @@
 import numpy as np
 from numpy.typing import NDArray
 from typing import Any
-
-
-class ArrayShapeError(BaseException):
-    """
-    Exception raised for invalid array shape.
-    """
-
-    pass
+from .exceptions import ArrayShapeError, NotFittedError
 
 
 def assert_ndarray_shape(
@@ -79,6 +72,41 @@ def assert_ndarray_shape(
                 f'Invalid shape for {name}, '
                 f'expected shape {shape}, got shape {A_shape}'
             )
+
+
+def assert_fitted(fitted, class_name='class'):
+    """
+    Assert that an estimator has been fitted.
+
+    Parameters
+    ----------
+    fitted : bool
+        Whether or not the given estimator has been fitted.
+
+    class_name : str, default ``class``
+        Display name of class instance, used to construct error message.
+
+    Examples
+    --------
+    >>> from datacheese.utils import assert_fitted
+    >>> assert_fitted(True)
+    >>> assert_fitted(False)
+    Traceback (most recent call last):
+        raise NotFittedError(
+    datacheese.exceptions.NotFittedError: This class instance has not been
+    fitted yet. Call 'fit' method before using this estimator.
+    >>> assert_fitted(False, class_name='myclass')
+    Traceback (most recent call last):
+        raise NotFittedError(
+    datacheese.exceptions.NotFittedError: This myclass instance has not been
+    fitted yet. Call 'fit' method before using this estimator.
+    """
+    # raise error if estimator class not fitted
+    if not fitted:
+        raise NotFittedError(
+            f'This {class_name} instance has not been fitted yet. '
+            'Call \'fit\' method before using this estimator.'
+        )
 
 
 def pad_array(A: NDArray[np.float64], edge: str, c: float):

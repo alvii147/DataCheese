@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
-from datacheese.utils import assert_ndarray_shape, ArrayShapeError
+from datacheese.utils import assert_ndarray_shape, assert_fitted
+from datacheese.exceptions import ArrayShapeError, NotFittedError
 
 
 def test_assert_array_shape():
@@ -25,3 +26,14 @@ def test_assert_array_shape():
 
     with pytest.raises(ArrayShapeError):
         assert_ndarray_shape(x, shape=(None, None, None))
+
+
+def test_assert_fitted():
+    assert_fitted(True)
+    assert_fitted(True, class_name='myclass')
+
+    with pytest.raises(NotFittedError):
+        assert_fitted(False)
+
+    with pytest.raises(NotFittedError):
+        assert_fitted(False, class_name='myclass')

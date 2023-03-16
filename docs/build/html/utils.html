@@ -355,13 +355,6 @@ document.write(`
                   
   <section id="module-datacheese.utils">
 <span id="utils"></span><h1>utils<a class="headerlink" href="#module-datacheese.utils" title="Permalink to this heading">#</a></h1>
-<dl class="py exception">
-<dt class="sig sig-object py" id="datacheese.utils.ArrayShapeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">ArrayShapeError</span></span><a class="headerlink" href="#datacheese.utils.ArrayShapeError" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></p>
-<p>Exception raised for invalid array shape.</p>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="datacheese.utils.assert_ndarray_shape">
 <span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">assert_ndarray_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ndarray'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.utils.assert_ndarray_shape" title="Permalink to this definition">#</a></dt>
@@ -401,6 +394,35 @@ document.write(`
 <span class="w">    </span><span class="k">raise</span> <span class="n">ArrayShapeError</span><span class="p">(</span>
 <span class="gr">ArrayShapeError</span>: <span class="n">Invalid number of dimensions for A, expected 3 dimensions,</span>
 <span class="go">got 2 dimensions</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datacheese.utils.assert_fitted">
+<span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">assert_fitted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fitted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'class'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.utils.assert_fitted" title="Permalink to this definition">#</a></dt>
+<dd><p>Assert that an estimator has been fitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fitted</strong> (<em>bool</em>) – Whether or not the given estimator has been fitted.</p></li>
+<li><p><strong>class_name</strong> (str, default <code class="docutils literal notranslate"><span class="pre">class</span></code>) – Display name of class instance, used to construct error message.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datacheese.utils</span> <span class="kn">import</span> <span class="n">assert_fitted</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_fitted</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_fitted</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">NotFittedError</span><span class="p">(</span>
+<span class="gr">datacheese.exceptions.NotFittedError</span>: <span class="n">This class instance has not been</span>
+<span class="go">fitted yet. Call &#39;fit&#39; method before using this estimator.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_fitted</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;myclass&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">NotFittedError</span><span class="p">(</span>
+<span class="gr">datacheese.exceptions.NotFittedError</span>: <span class="n">This myclass instance has not been</span>
+<span class="go">fitted yet. Call &#39;fit&#39; method before using this estimator.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -480,8 +502,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.ArrayShapeError"><code class="docutils literal notranslate"><span class="pre">ArrayShapeError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.assert_ndarray_shape"><code class="docutils literal notranslate"><span class="pre">assert_ndarray_shape()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.assert_fitted"><code class="docutils literal notranslate"><span class="pre">assert_fitted()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.pad_array"><code class="docutils literal notranslate"><span class="pre">pad_array()</span></code></a></li>
 </ul>
   </nav></div>
