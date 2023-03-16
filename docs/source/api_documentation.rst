@@ -6,4 +6,5 @@ API Documentation
 
    activations
    neural_networks
+   regression
    utils
