@@ -1,6 +1,11 @@
 import numpy as np
 import pytest
-from datacheese.utils import assert_ndarray_shape, assert_fitted, pad_array
+from datacheese.utils import (
+    assert_ndarray_shape,
+    assert_fitted,
+    assert_str_choice,
+    pad_array,
+)
 from datacheese.exceptions import ArrayShapeError, NotFittedError
 
 
@@ -37,6 +42,23 @@ def test_assert_fitted():
 
     with pytest.raises(NotFittedError):
         assert_fitted(False, class_name='myclass')
+
+
+def test_assert_str_choice():
+    x = 'valid_choice1'
+    choices = ['valid_choice1', 'valid_choice2', 'valid_choice3']
+
+    assert_str_choice(x, choices, str_name='x')
+
+    x = 'invalid_choice'
+    with pytest.raises(ValueError):
+        assert_str_choice(x, choices, str_name='x')
+
+    x = 'VaLiD_cHoIcE1'
+    with pytest.raises(ValueError):
+        assert_str_choice(x, choices, str_name='x')
+
+    assert_str_choice(x, choices, str_name='x', case_insensitive=True)
 
 
 def test_pad_array():

@@ -41,7 +41,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'utils';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="neural_networks" href="neural_networks.html" />
+    <link rel="prev" title="regression" href="regression.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -295,6 +295,7 @@ document.write(`
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="activations.html">activations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="neural_networks.html">neural_networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regression.html">regression</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">utils</a></li>
 </ul>
 </div>
@@ -357,7 +358,7 @@ document.write(`
 <span id="utils"></span><h1>utils<a class="headerlink" href="#module-datacheese.utils" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="datacheese.utils.assert_ndarray_shape">
-<span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">assert_ndarray_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ndarray'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.utils.assert_ndarray_shape" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">assert_ndarray_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">array_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ndarray'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.utils.assert_ndarray_shape" title="Permalink to this definition">#</a></dt>
 <dd><p>Assert array is of given shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -365,7 +366,7 @@ document.write(`
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Array to check shape of.</p></li>
 <li><p><strong>shape</strong> (<em>tuple</em>) – Shape to expect, represented by a tuple of dimensions. Dimensions with
 <code class="docutils literal notranslate"><span class="pre">None</span></code> are ignored.</p></li>
-<li><p><strong>name</strong> (str, default <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) – Display name of given array, used to construct error message.</p></li>
+<li><p><strong>array_name</strong> (str, default <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>) – Display name of given array, used to construct error message.</p></li>
 </ul>
 </dd>
 </dl>
@@ -373,15 +374,15 @@ document.write(`
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datacheese.utils</span> <span class="kn">import</span> <span class="n">assert_ndarray_shape</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">array_name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">None</span></code> may be used to ignore a dimensions.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">array_name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ArrayShapeError</span></code> is raised when shapes don’t match.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">array_name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">ArrayShapeError</span><span class="p">(</span>
 <span class="gr">ArrayShapeError</span>: <span class="n">Invalid shape for A, expected shape (None, 7), got shape</span>
@@ -389,7 +390,7 @@ document.write(`
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ArrayShapeError</span></code> is raised when number of dimensions don’t match.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assert_ndarray_shape</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">array_name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">ArrayShapeError</span><span class="p">(</span>
 <span class="gr">ArrayShapeError</span>: <span class="n">Invalid number of dimensions for A, expected 3 dimensions,</span>
@@ -412,17 +413,51 @@ document.write(`
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datacheese.utils</span> <span class="kn">import</span> <span class="n">assert_fitted</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_fitted</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_fitted</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
-<span class="gt">Traceback (most recent call last):</span>
-<span class="w">    </span><span class="k">raise</span> <span class="n">NotFittedError</span><span class="p">(</span>
-<span class="gr">datacheese.exceptions.NotFittedError</span>: <span class="n">This class instance has not been</span>
-<span class="go">fitted yet. Call &#39;fit&#39; method before using this estimator.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_fitted</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;myclass&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">assert_fitted</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s1">&#39;myclass&#39;</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
 <span class="w">    </span><span class="k">raise</span> <span class="n">NotFittedError</span><span class="p">(</span>
 <span class="gr">datacheese.exceptions.NotFittedError</span>: <span class="n">This myclass instance has not been</span>
 <span class="go">fitted yet. Call &#39;fit&#39; method before using this estimator.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datacheese.utils.assert_str_choice">
+<span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">assert_str_choice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'string'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_insensitive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.utils.assert_str_choice" title="Permalink to this definition">#</a></dt>
+<dd><p>Assert that a string value belongs to given list of allowed choices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>str_val</strong> (<em>str</em>) – String value.</p></li>
+<li><p><strong>choices</strong> (<em>list</em>) – List of allowed choices.</p></li>
+<li><p><strong>str_name</strong> (str, default <code class="docutils literal notranslate"><span class="pre">string</span></code>) – Display name of string variable, used to construct error message.</p></li>
+<li><p><strong>case_insensitive</strong> (<em>bool</em>) – Case sensitivity when checking if string value is in given list.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datacheese.utils</span> <span class="kn">import</span> <span class="n">assert_str_choice</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eu_country</span> <span class="o">=</span> <span class="s1">&#39;Germany&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Italy&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_str_choice</span><span class="p">(</span><span class="n">eu_country</span><span class="p">,</span> <span class="n">choices</span><span class="p">,</span> <span class="n">str_name</span><span class="o">=</span><span class="s1">&#39;EU country&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eu_country</span> <span class="o">=</span> <span class="s1">&#39;Britain&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_str_choice</span><span class="p">(</span><span class="n">eu_country</span><span class="p">,</span> <span class="n">choices</span><span class="p">,</span> <span class="n">str_name</span><span class="o">=</span><span class="s1">&#39;EU country&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="gr">ValueError</span>: <span class="n">Invalid value for &#39;EU country&#39;, must be one of &#39;Germany&#39;,</span>
+<span class="go">&#39;Italy&#39;, &#39;Spain&#39;.</span>
+</pre></div>
+</div>
+<p>Set <code class="docutils literal notranslate"><span class="pre">case_insensitive</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> to ignore case:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eu_country</span> <span class="o">=</span> <span class="s1">&#39;germany&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assert_str_choice</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">eu_country</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">choices</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">str_name</span><span class="o">=</span><span class="s1">&#39;EU country&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">case_insensitive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -479,12 +514,12 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="neural_networks.html"
+       href="regression.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">neural_networks</p>
+        <p class="prev-next-title">regression</p>
       </div>
     </a>
 </div>
@@ -504,6 +539,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.assert_ndarray_shape"><code class="docutils literal notranslate"><span class="pre">assert_ndarray_shape()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.assert_fitted"><code class="docutils literal notranslate"><span class="pre">assert_fitted()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.assert_str_choice"><code class="docutils literal notranslate"><span class="pre">assert_str_choice()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.pad_array"><code class="docutils literal notranslate"><span class="pre">pad_array()</span></code></a></li>
 </ul>
   </nav></div>
