@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from datacheese.utils import assert_ndarray_shape, assert_fitted
+from datacheese.utils import assert_ndarray_shape, assert_fitted, pad_array
 from datacheese.exceptions import ArrayShapeError, NotFittedError
 
 
@@ -37,3 +37,28 @@ def test_assert_fitted():
 
     with pytest.raises(NotFittedError):
         assert_fitted(False, class_name='myclass')
+
+
+def test_pad_array():
+    rng = np.random.default_rng()
+    A = rng.uniform(low=-1, high=1, size=(4, 4))
+
+    Ap = pad_array(A, 'top', 3)
+    assert Ap.shape == (5, 4)
+    assert np.all(Ap[0] == 3)
+    assert np.allclose(Ap[1:], A)
+
+    Ap = pad_array(A, 'bottom', 1)
+    assert Ap.shape == (5, 4)
+    assert np.all(Ap[-1] == 1)
+    assert np.allclose(Ap[:-1], A)
+
+    Ap = pad_array(A, 'left', 4)
+    assert Ap.shape == (4, 5)
+    assert np.all(Ap[:, 0] == 4)
+    assert np.allclose(Ap[:, 1:], A)
+
+    Ap = pad_array(A, 'right', 1)
+    assert Ap.shape == (4, 5)
+    assert np.all(Ap[:, -1] == 1)
+    assert np.allclose(Ap[:, :-1], A)

@@ -358,13 +358,13 @@ document.write(`
   <section id="module-datacheese.regression">
 <span id="regression"></span><h1>regression<a class="headerlink" href="#module-datacheese.regression" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="datacheese.regression.Regression">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.regression.</span></span><span class="sig-name descname"><span class="pre">Regression</span></span><a class="headerlink" href="#datacheese.regression.Regression" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="datacheese.regression.LinearRegression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.regression.</span></span><span class="sig-name descname"><span class="pre">LinearRegression</span></span><a class="headerlink" href="#datacheese.regression.LinearRegression" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Linear regression implementation model.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datacheese.regression</span> <span class="kn">import</span> <span class="n">Regression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datacheese.regression</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 </pre></div>
 </div>
 <p>Generate data:</p>
@@ -374,7 +374,7 @@ document.write(`
 </pre></div>
 </div>
 <p>Fit model using data:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Regression</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -392,8 +392,8 @@ document.write(`
 </pre></div>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="datacheese.regression.Regression.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.Regression.fit" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="datacheese.regression.LinearRegression.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LinearRegression.fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Fit linear regression model to training data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -411,8 +411,8 @@ ordinary least squares regression.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="datacheese.regression.Regression.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.Regression.predict" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="datacheese.regression.LinearRegression.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LinearRegression.predict" title="Permalink to this definition">#</a></dt>
 <dd><p>Use fitted weights to predict target values for test data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -429,8 +429,8 @@ number of testing examples and <code class="docutils literal notranslate"><span 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="datacheese.regression.Regression.score">
-<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.Regression.score" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="datacheese.regression.LinearRegression.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LinearRegression.score" title="Permalink to this definition">#</a></dt>
 <dd><p>Use fitted weights to predict target values for test data and compute
 R-squared value using actual target values.</p>
 <dl class="field-list simple">
@@ -495,10 +495,10 @@ number of testing examples and <code class="docutils literal notranslate"><span 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.Regression"><code class="docutils literal notranslate"><span class="pre">Regression</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.Regression.fit"><code class="docutils literal notranslate"><span class="pre">Regression.fit()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.Regression.predict"><code class="docutils literal notranslate"><span class="pre">Regression.predict()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.Regression.score"><code class="docutils literal notranslate"><span class="pre">Regression.score()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.LinearRegression"><code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.LinearRegression.fit"><code class="docutils literal notranslate"><span class="pre">LinearRegression.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.LinearRegression.predict"><code class="docutils literal notranslate"><span class="pre">LinearRegression.predict()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.regression.LinearRegression.score"><code class="docutils literal notranslate"><span class="pre">LinearRegression.score()</span></code></a></li>
 </ul>
 </li>
 </ul>

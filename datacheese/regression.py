@@ -3,14 +3,14 @@ from numpy.typing import NDArray
 from .utils import assert_ndarray_shape, assert_fitted, pad_array
 
 
-class Regression:
+class LinearRegression:
     """
     Linear regression implementation model.
 
     Examples
     --------
     >>> import numpy as np
-    >>> from datacheese.regression import Regression
+    >>> from datacheese.regression import LinearRegression
 
     Generate data:
 
@@ -20,7 +20,7 @@ class Regression:
 
     Fit model using data:
 
-    >>> model = Regression()
+    >>> model = LinearRegression()
     >>> model.fit(X, y)
 
     Use model to make predictions:
