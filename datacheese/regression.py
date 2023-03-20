@@ -213,6 +213,7 @@ class LogisticRegression:
     Compute accuracy:
 
     >>> model.score(X, y)
+    1.0
 
     Compute negative log probability by changing the ``metric`` parameter:
 
