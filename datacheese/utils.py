@@ -137,8 +137,8 @@ def assert_str_choice(
     >>> assert_str_choice(eu_country, choices, str_name='EU country')
     Traceback (most recent call last):
         raise ValueError(
-    ValueError: Invalid value for 'EU country', must be one of 'Germany',
-    'Italy', 'Spain'.
+    ValueError: Invalid value 'Britain' for 'EU country', must be one of
+    'Germany', 'Italy', 'Spain'.
 
     Set ``case_insensitive`` to ``True`` to ignore case:
 
@@ -162,7 +162,8 @@ def assert_str_choice(
     if str_val_to_check not in choices_to_check:
         choices_str = ', '.join([f'\'{c}\'' for c in choices])
         raise ValueError(
-            f'Invalid value for \'{str_name}\', must be one of {choices_str}.'
+            f'Invalid value \'{str_val}\' for \'{str_name}\', '
+            f'must be one of {choices_str}.'
         )
 
 
