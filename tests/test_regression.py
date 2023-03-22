@@ -10,20 +10,20 @@ def test_LinearRegression():
     t = 2
 
     X = rng.normal(loc=0, scale=1, size=(n, d))
-    w = rng.normal(loc=0, scale=1, size=(d, t))
-    b = rng.normal(loc=0, scale=1, size=1)[0]
-    y = (X @ w) + b
+    W = rng.normal(loc=0, scale=1, size=(d, t))
+    b = rng.normal(loc=0, scale=1, size=t)
+    Y = (X @ W) + b
 
     model = LinearRegression()
-    model.fit(X, y, Lambda=0.0)
-    assert np.allclose(model.w[1:], w)
-    assert np.allclose(model.w[0], b)
+    model.fit(X, Y, Lambda=0.0)
+    assert np.allclose(model.W[1:], W)
+    assert np.allclose(model.W[0], b)
 
     y_pred = model.predict(X)
-    assert np.allclose(y_pred, y)
+    assert np.allclose(y_pred, Y)
 
-    r_squared = model.score(X, y)
-    assert np.allclose(r_squared, 1)
+    r_squared = model.score(X, Y)
+    assert np.all(r_squared == 1)
 
 
 def test_LogisticRegression_gradient():
@@ -36,22 +36,22 @@ def test_LogisticRegression_gradient():
         ],
         dtype=np.float64,
     )
-    y = np.any(X, axis=1).astype(int)
+    Y = np.column_stack((np.any(X, axis=1), np.all(X, axis=1))).astype(int)
 
     model = LogisticRegression()
-    model.fit(X, y, method='gradient')
+    model.fit(X, Y, method='gradient')
 
-    y_pred = model.predict(X)
-    assert np.allclose(y_pred, y)
+    Y_pred = model.predict(X)
+    assert np.all(Y_pred == Y)
 
-    y_prob = model.predict_prob(X)
-    assert np.all(np.abs(y - y_prob) < 0.5)
+    Y_prob = model.predict_prob(X)
+    assert np.all(np.abs(Y - Y_prob) < 0.5)
 
-    accuracy = model.score(X, y, metric='accuracy')
-    assert accuracy == 1
+    accuracy = model.score(X, Y, metric='accuracy')
+    assert np.all(accuracy == 1)
 
-    log_loss = model.score(X, y, metric='log_loss')
-    assert log_loss >= 0
+    log_loss = model.score(X, Y, metric='log_loss')
+    assert np.all(log_loss >= 0)
 
 
 def test_LogisticRegression_newton():
@@ -64,19 +64,19 @@ def test_LogisticRegression_newton():
         ],
         dtype=np.float64,
     )
-    y = np.any(X, axis=1).astype(int)
+    Y = np.column_stack((np.any(X, axis=1), np.all(X, axis=1))).astype(int)
 
     model = LogisticRegression()
-    model.fit(X, y, method='newton')
+    model.fit(X, Y, method='newton')
 
-    y_pred = model.predict(X)
-    assert np.allclose(y_pred, y)
+    Y_pred = model.predict(X)
+    assert np.all(Y_pred == Y)
 
-    y_prob = model.predict_prob(X)
-    assert np.all(np.abs(y - y_prob) < 0.5)
+    Y_prob = model.predict_prob(X)
+    assert np.all(np.abs(Y - Y_prob) < 0.5)
 
-    accuracy = model.score(X, y, metric='accuracy')
-    assert accuracy == 1
+    accuracy = model.score(X, Y, metric='accuracy')
+    assert np.all(accuracy == 1)
 
-    log_loss = model.score(X, y, metric='log_loss')
-    assert log_loss >= 0
+    log_loss = model.score(X, Y, metric='log_loss')
+    assert np.all(log_loss >= 0)

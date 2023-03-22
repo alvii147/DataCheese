@@ -518,48 +518,57 @@ the number of testing examples and <code class="docutils literal notranslate"><s
 <span class="go">       [1., 1.]])</span>
 </pre></div>
 </div>
-<p>Generate target values based on an OR logic gate:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span>
-<span class="go">array([0, 1, 1, 1])</span>
+<p>Generate target values based on OR and AND logic gates:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span>
+<span class="go">array([[0, 0],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [1, 1]])</span>
 </pre></div>
 </div>
 <p>Fit model using data:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Use model to make predictions:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="go">array([0, 1, 1, 1])</span>
+<span class="go">array([[0, 0],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [1, 1]])</span>
 </pre></div>
 </div>
 <p>Use model to obtain prediction probabilities:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">predict_prob</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="go">array([0.05523008, 0.99999961, 0.98907499, 0.98196914])</span>
+<span class="go">array([[5.15437859e-02, 1.96513677e-04],</span>
+<span class="go">       [9.79474434e-01, 4.90497532e-02],</span>
+<span class="go">       [9.79474434e-01, 4.90497532e-02],</span>
+<span class="go">       [9.99976135e-01, 9.31203746e-01]])</span>
 </pre></div>
 </div>
 <p>Compute accuracy:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="go">1.0</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="go">array([1., 1.])</span>
 </pre></div>
 </div>
 <p>Compute negative log probability by changing the <code class="docutils literal notranslate"><span class="pre">metric</span></code> parameter:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">)</span>
-<span class="go">0.09550699766960563</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;log_loss&#39;</span><span class="p">)</span>
+<span class="go">array([0.0944218 , 0.17206078])</span>
 </pre></div>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="datacheese.regression.LogisticRegression.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gradient'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LogisticRegression.fit" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gradient'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LogisticRegression.fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Fit logistic regression model to training data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D training features array, of shape <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the
 number of training examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p></li>
-<li><p><strong>y</strong> (<em>numpy.ndarray</em>) – 1D training target values array, of length <code class="docutils literal notranslate"><span class="pre">n</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is
-the number of training examples.</p></li>
+<li><p><strong>Y</strong> (<em>numpy.ndarray</em>) – 2D training target values array, of shape <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">x</span> <span class="pre">t</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is
+the number of training examples and <code class="docutils literal notranslate"><span class="pre">t</span></code> is the number of targets.</p></li>
 <li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default 0.1</em>) – Learning rate for weight update, only used with gradient descent.</p></li>
 <li><p><strong>Lambda</strong> (<em>float</em><em>, </em><em>default 0.0</em>) – Regularization constant, lambda, to be used as penalty term weight.</p></li>
 <li><p><strong>tolerance</strong> (<em>float</em><em>, </em><em>default 0.0001</em>) – Tolerance of maximum element in gradient vector, used to for
@@ -579,14 +588,14 @@ method.</p></li>
 <dd><p>Use fitted weights to predict target values for test data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
+<dd class="field-odd"><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
 number of testing examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>y_pred</strong> – Array of predicted target values.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -597,30 +606,31 @@ number of testing examples and <code class="docutils literal notranslate"><span 
 <dd><p>Use fitted weights to compute target probabilities for test data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
+<dd class="field-odd"><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
 number of testing examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>y_prob</strong> – Array of target probabilities.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="datacheese.regression.LogisticRegression.score">
-<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'accuracy'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LogisticRegression.score" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'accuracy'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LogisticRegression.score" title="Permalink to this definition">#</a></dt>
 <dd><p>Use fitted weights to predict target values for test data and compute
 prediction score. This can be classification accuracy or log loss,
 depending on the chosen metric.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
+<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
 number of testing examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p></li>
-<li><p><strong>y</strong> (<em>ndarray</em>) – 1D testing target values array, of length <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p></li>
+<li><p><strong>Y</strong> (<em>numpy.ndarray</em>) – 2D testing target values array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">t</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is
+the number of testing examples and <code class="docutils literal notranslate"><span class="pre">t</span></code> is the number of targets.</p></li>
 <li><p><strong>metric</strong> (<em>str</em>) – Chosen metric. Must be one of <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> or <code class="docutils literal notranslate"><span class="pre">log_loss</span></code>,
 corresponding to classification accuracy or log loss respectively.</p></li>
 </ul>
@@ -629,7 +639,7 @@ corresponding to classification accuracy or log loss respectively.</p></li>
 <dd class="field-even"><p><strong>score</strong> – Prediction score.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>

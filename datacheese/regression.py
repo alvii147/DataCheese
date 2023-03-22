@@ -115,16 +115,16 @@ class LinearRegression:
             ridge regression. Default is 0.0, which is the special case of
             ordinary least squares regression.
         """
-        assert_ndarray_shape(X, shape=(None, None))
-        n, self.d = X.shape
-        assert_ndarray_shape(Y, shape=(n, None))
+        assert_ndarray_shape(X, shape=(None, None), array_name='X')
+        n, d = X.shape
+        assert_ndarray_shape(Y, shape=(n, None), array_name='Y')
 
         # get one-padded training data
         Xp = pad_array(X, 'left', 1)
         # construct identity matrix
-        I = np.identity(self.d + 1, dtype=np.float64)
+        I = np.identity(d + 1, dtype=np.float64)
         # solve linear system
-        self.w = np.linalg.solve(
+        self.W = np.linalg.solve(
             (Xp.T @ Xp) + (Lambda * I),
             Xp.T @ Y,
         )
@@ -146,13 +146,17 @@ class LinearRegression:
         Y_pred : numpy.ndarray
             2D array of predicted target values.
         """
-        assert_fitted(self.fitted, self.__class__.__name__)
-        assert_ndarray_shape(X, shape=(None, self.d))
+        assert_fitted(self.fitted, class_name=self.__class__.__name__)
+        assert_ndarray_shape(
+            X,
+            shape=(None, self.W.shape[0] - 1),
+            array_name='X',
+        )
 
         # get one-padded testing data
         Xp = pad_array(X, 'left', 1)
         # compute predicted target values
-        y_pred = Xp @ self.w
+        y_pred = Xp @ self.W
 
         return y_pred
 
@@ -180,9 +184,13 @@ class LinearRegression:
         r_squared : numpy.ndarray
             Array of :math:`R^2` accuracy scores, i.e. values between 0 and 1.
         """
-        assert_ndarray_shape(X, shape=(None, self.d))
+        assert_ndarray_shape(
+            X,
+            shape=(None, self.W.shape[0] - 1),
+            array_name='X',
+        )
         m, _ = X.shape
-        assert_ndarray_shape(Y, shape=(m, None))
+        assert_ndarray_shape(Y, shape=(m, None), array_name='Y')
 
         # get predicted target values
         Y_pred = self.predict(X)
@@ -214,36 +222,45 @@ class LogisticRegression:
            [1., 0.],
            [1., 1.]])
 
-    Generate target values based on an OR logic gate:
+    Generate target values based on OR and AND logic gates:
 
-    >>> y = np.any(X, axis=1).astype(int)
-    >>> y
-    array([0, 1, 1, 1])
+    >>> Y = np.column_stack((np.any(X, axis=1), np.all(X, axis=1))).astype(int)
+    >>> Y
+    array([[0, 0],
+           [1, 0],
+           [1, 0],
+           [1, 1]])
 
     Fit model using data:
 
     >>> model = LogisticRegression()
-    >>> model.fit(X, y)
+    >>> model.fit(X, Y)
 
     Use model to make predictions:
 
     >>> model.predict(X)
-    array([0, 1, 1, 1])
+    array([[0, 0],
+           [1, 0],
+           [1, 0],
+           [1, 1]])
 
     Use model to obtain prediction probabilities:
 
     >>> model.predict_prob(X)
-    array([0.05523008, 0.99999961, 0.98907499, 0.98196914])
+    array([[5.15437859e-02, 1.96513677e-04],
+           [9.79474434e-01, 4.90497532e-02],
+           [9.79474434e-01, 4.90497532e-02],
+           [9.99976135e-01, 9.31203746e-01]])
 
     Compute accuracy:
 
-    >>> model.score(X, y)
-    1.0
+    >>> model.score(X, Y)
+    array([1., 1.])
 
     Compute negative log probability by changing the ``metric`` parameter:
 
-    >>> model.score(X, y, metric='log_loss')
-    0.09550699766960563
+    >>> model.score(X, Y, metric='log_loss')
+    array([0.0944218 , 0.17206078])
     """
 
     def __init__(self):
@@ -252,7 +269,7 @@ class LogisticRegression:
     def fit(
         self,
         X: NDArray[np.float64],
-        y: NDArray[np.int64],
+        Y: NDArray[np.int64],
         lr: float = 0.1,
         Lambda: float = 0.0,
         tolerance: float = 0.0001,
@@ -268,9 +285,9 @@ class LogisticRegression:
             2D training features array, of shape ``n x d``, where ``n`` is the
             number of training examples and ``d`` is the number of dimensions.
 
-        y : numpy.ndarray
-            1D training target values array, of length ``n``, where ``n`` is
-            the number of training examples.
+        Y : numpy.ndarray
+            2D training target values array, of shape ``n x t``, where ``n`` is
+            the number of training examples and ``t`` is the number of targets.
 
         lr : float, default 0.1
             Learning rate for weight update, only used with gradient descent.
@@ -290,9 +307,10 @@ class LogisticRegression:
             representing gradient descent, or ``newton``, representing Newton's
             method.
         """
-        assert_ndarray_shape(X, shape=(None, None))
-        n, self.d = X.shape
-        assert_ndarray_shape(y, shape=n)
+        assert_ndarray_shape(X, shape=(None, None), array_name='X')
+        n, d = X.shape
+        assert_ndarray_shape(Y, shape=(n, None), array_name='Y')
+        _, t = Y.shape
         assert_str_choice(
             method,
             ['gradient', 'newton'],
@@ -302,18 +320,25 @@ class LogisticRegression:
 
         # get one-padded training data
         Xp = pad_array(X, 'left', 1)
-        # construct identity matrix
-        I = np.identity(self.d + 1)
-        # declare random number generator
-        rng = np.random.default_rng()
-        # initialize weights using Gaussian distribution
-        self.w = rng.normal(loc=0, scale=1, size=self.d + 1)
+        # initialize weights to zero
+        self.W = np.zeros((d + 1, t), dtype=np.float64)
 
-        for i in range(max_iters):
+        # only for newton's method
+        if method == 'newton':
+            # construct identity matrix
+            diag_I = np.diag_indices(d + 1)
+            I = np.zeros((t, d + 1, d + 1), dtype=np.float64)
+            I[:, *diag_I] = 1
+
+            # construct diagonal matrix of sigmoid derivatives
+            diag_R = np.diag_indices(n)
+            R = np.zeros((t, n, n), dtype=np.float64)
+
+        for _ in range(max_iters):
             # compute target probabilities
-            y_prob = sigmoid(Xp @ self.w)
+            Y_prob = sigmoid(Xp @ self.W)
             # compute gradient of loss
-            del_L = Xp.T @ (y_prob - y) + (Lambda * self.w)
+            del_L = Xp.T @ (Y_prob - Y) + (Lambda * self.W)
             # terminate if absolute maximum of gradient is below tolerance
             if np.amax(np.abs(del_L)) < tolerance:
                 break
@@ -321,17 +346,20 @@ class LogisticRegression:
             # if gradient descent method chosen
             if method == 'gradient':
                 # change in weights
-                del_w = lr * del_L
+                del_W = lr * del_L
             # if newton's method chosen
             elif method == 'newton':
                 # compute Hessian matrix
-                R = np.diagflat(sigmoid_derivative(f=y_prob))
+                R[:, *diag_R] = sigmoid_derivative(f=Y_prob).T
                 H = (Xp.T @ R @ Xp) + (Lambda * I)
+                H_pinv = np.linalg.pinv(H)
                 # change in weights
-                del_w = np.linalg.inv(H) @ del_L
+                del_W = (
+                    H_pinv @ del_L.T.reshape(t, d + 1, -1)
+                ).T.reshape(d + 1, t)
 
             # update weights
-            self.w -= del_w
+            self.W -= del_W
 
         # set model as fitted
         self.fitted = True
@@ -342,22 +370,26 @@ class LogisticRegression:
 
         Parameters
         ----------
-        X : ndarray
+        X : numpy.ndarray
             2D testing features array, of shape ``m x d``, where ``m`` is the
             number of testing examples and ``d`` is the number of dimensions.
 
         Returns
         -------
-        y_pred : ndarray
+        y_pred : numpy.ndarray
             Array of predicted target values.
         """
-        assert_fitted(self.fitted, self.__class__.__name__)
-        assert_ndarray_shape(X, shape=(None, self.d))
+        assert_fitted(self.fitted, class_name=self.__class__.__name__)
+        assert_ndarray_shape(
+            X,
+            shape=(None, self.W.shape[0] - 1),
+            array_name='X',
+        )
 
         # get one-padded testing data
         Xp = pad_array(X, 'left', 1)
         # apply weights on test data and pass through step function
-        y_pred = np.where(Xp @ self.w > 0, 1, 0)
+        y_pred = np.where(Xp @ self.W > 0, 1, 0)
 
         return y_pred
 
@@ -367,31 +399,35 @@ class LogisticRegression:
 
         Parameters
         ----------
-        X : ndarray
+        X : numpy.ndarray
             2D testing features array, of shape ``m x d``, where ``m`` is the
             number of testing examples and ``d`` is the number of dimensions.
 
         Returns
         -------
-        y_prob : ndarray
+        y_prob : numpy.ndarray
             Array of target probabilities.
         """
-        assert_fitted(self.fitted, self.__class__.__name__)
-        assert_ndarray_shape(X, shape=(None, self.d))
+        assert_fitted(self.fitted, class_name=self.__class__.__name__)
+        assert_ndarray_shape(
+            X,
+            shape=(None, self.W.shape[0] - 1),
+            array_name='X',
+        )
 
         # get one-padded testing data
         Xp = pad_array(X, 'left', 1)
         # apply weights on test data and pass through sigmoid function
-        y_prob = sigmoid(Xp @ self.w)
+        y_prob = sigmoid(Xp @ self.W)
 
         return y_prob
 
     def score(
         self,
         X: NDArray[np.float64],
-        y: NDArray[np.int64],
+        Y: NDArray[np.int64],
         metric: str = 'accuracy',
-    ) -> float:
+    ) -> NDArray[np.int64]:
         """
         Use fitted weights to predict target values for test data and compute
         prediction score. This can be classification accuracy or log loss,
@@ -399,12 +435,13 @@ class LogisticRegression:
 
         Parameters
         ----------
-        X : ndarray
+        X : numpy.ndarray
             2D testing features array, of shape ``m x d``, where ``m`` is the
             number of testing examples and ``d`` is the number of dimensions.
 
-        y : ndarray
-            1D testing target values array, of length ``m``.
+        Y : numpy.ndarray
+            2D testing target values array, of shape ``m x t``, where ``m`` is
+            the number of testing examples and ``t`` is the number of targets.
 
         metric : str
             Chosen metric. Must be one of ``accuracy`` or ``log_loss``,
@@ -412,12 +449,16 @@ class LogisticRegression:
 
         Returns
         -------
-        score : float
+        score : numpy.ndarray
             Prediction score.
         """
-        assert_ndarray_shape(X, shape=(None, self.d))
+        assert_ndarray_shape(
+            X,
+            shape=(None, self.W.shape[0] - 1),
+            array_name='X',
+        )
         m, _ = X.shape
-        assert_ndarray_shape(y, shape=m)
+        assert_ndarray_shape(Y, shape=(m, None), array_name='Y')
         assert_str_choice(
             metric,
             ['accuracy', 'log_loss'],
@@ -428,31 +469,33 @@ class LogisticRegression:
         # if accuracy metric chosen
         if metric == 'accuracy':
             # get predicted targets
-            y_pred = self.predict(X)
+            Y_pred = self.predict(X)
             # get mean accuracy
-            score = np.mean(y_pred == y)
+            score = np.mean(Y_pred == Y, axis=0)
         # if log loss metric is chosen
         elif metric == 'log_loss':
             # get target probability values
-            y_prob = self.predict_prob(X)
+            Y_prob = self.predict_prob(X)
             # compute negative loss probabilities
             # ignore errors related to logarithm as we replace nan to 0
-            with np.errstate(divide='ignore'):
+            with np.errstate(divide='ignore', invalid='ignore'):
                 ones_loss = np.sum(
                     np.nan_to_num(
-                        y * np.log(y_prob),
+                        Y * np.log(Y_prob),
                         nan=0.0,
                         posinf=np.inf,
                         neginf=-np.inf,
-                    )
+                    ),
+                    axis=0,
                 )
                 zeros_loss = np.sum(
                     np.nan_to_num(
-                        (1 - y) * np.log(1 - y_prob),
+                        (1 - Y) * np.log(1 - Y_prob),
                         nan=0.0,
                         posinf=np.inf,
                         neginf=-np.inf,
-                    )
+                    ),
+                    axis=0,
                 )
 
             score = -(ones_loss + zeros_loss)
