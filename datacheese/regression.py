@@ -156,9 +156,9 @@ class LinearRegression:
         # get one-padded testing data
         Xp = pad_array(X, 'left', 1)
         # compute predicted target values
-        y_pred = Xp @ self.W
+        Y_pred = Xp @ self.W
 
-        return y_pred
+        return Y_pred
 
     def score(
         self,
@@ -376,7 +376,7 @@ class LogisticRegression:
 
         Returns
         -------
-        y_pred : numpy.ndarray
+        Y_pred : numpy.ndarray
             Array of predicted target values.
         """
         assert_fitted(self.fitted, class_name=self.__class__.__name__)
@@ -389,9 +389,9 @@ class LogisticRegression:
         # get one-padded testing data
         Xp = pad_array(X, 'left', 1)
         # apply weights on test data and pass through step function
-        y_pred = np.where(Xp @ self.W > 0, 1, 0)
+        Y_pred = np.where(Xp @ self.W > 0, 1, 0)
 
-        return y_pred
+        return Y_pred
 
     def predict_prob(self, X: NDArray[np.float64]) -> NDArray[np.float64]:
         """
@@ -405,7 +405,7 @@ class LogisticRegression:
 
         Returns
         -------
-        y_prob : numpy.ndarray
+        Y_prob : numpy.ndarray
             Array of target probabilities.
         """
         assert_fitted(self.fitted, class_name=self.__class__.__name__)
@@ -418,9 +418,9 @@ class LogisticRegression:
         # get one-padded testing data
         Xp = pad_array(X, 'left', 1)
         # apply weights on test data and pass through sigmoid function
-        y_prob = sigmoid(Xp @ self.W)
+        Y_prob = sigmoid(Xp @ self.W)
 
-        return y_prob
+        return Y_prob
 
     def score(
         self,
