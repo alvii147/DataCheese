@@ -450,7 +450,7 @@ class LogisticRegression:
         Returns
         -------
         score : numpy.ndarray
-            Prediction score.
+            Array of prediction scores.
         """
         assert_ndarray_shape(
             X,
