@@ -369,63 +369,87 @@ document.write(`
 </pre></div>
 </div>
 <p>Generate input data:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">],</span>
+<span class="gp">... </span>    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
-<span class="go">array([[1., 1.],</span>
-<span class="go">       [1., 2.],</span>
-<span class="go">       [2., 2.],</span>
-<span class="go">       [2., 3.]])</span>
+<span class="go">array([[ 1.,  1.,  0.],</span>
+<span class="go">       [ 1.,  2., -1.],</span>
+<span class="go">       [ 2., -2.,  0.],</span>
+<span class="go">       [ 0., -3.,  7.],</span>
+<span class="go">       [ 8., -6.,  0.]])</span>
 </pre></div>
 </div>
-<p>Generate target values using equation <span class="math notranslate nohighlight">\(y = x_0 + 2 x_1 + 3\)</span>:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span>
-<span class="go">array([ 6.,  8.,  9., 11.])</span>
+<p>Generate target values using equations <span class="math notranslate nohighlight">\(y_0 = x_0 + 2 x_1 + x_2 + 3\)</span>
+and <span class="math notranslate nohighlight">\(y_1 = 2 x_0 - x_1 - 3 x_2 - 2\)</span>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]]),</span>
+<span class="gp">... </span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span>
+<span class="go">array([[  6.,  -1.],</span>
+<span class="go">       [  7.,   1.],</span>
+<span class="go">       [  1.,   4.],</span>
+<span class="go">       [  4., -20.],</span>
+<span class="go">       [ -1.,  20.]])</span>
 </pre></div>
 </div>
 <p>Fit model using data:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Use model to make predictions:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span>
-<span class="go">array([[3., 5.],</span>
-<span class="go">       [2., 4.]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span>
-<span class="go">array([16., 13.])</span>
+<span class="go">array([[ 3.,  5., -2.],</span>
+<span class="go">       [-2.,  4.,  3.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X_test</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]]),</span>
+<span class="gp">... </span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y_test</span>
+<span class="go">array([[ 14.,   5.],</span>
+<span class="go">       [ 12., -19.]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="go">array([16., 13.])</span>
+<span class="go">array([[ 14.,   5.],</span>
+<span class="go">       [ 12., -19.]])</span>
 </pre></div>
 </div>
-<p>Compute <span class="math notranslate nohighlight">\(R^2\)</span> accuracy:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="go">1.0</span>
+<p>Compute <span class="math notranslate nohighlight">\(R^2\)</span> accuracies:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">)</span>
+<span class="go">array([1., 1.])</span>
 </pre></div>
 </div>
 <p>Setting <code class="docutils literal notranslate"><span class="pre">Lamdba</span></code> to non-zero value performs ridge regression:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Lambda</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Lambda</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="go">array([16.87830688, 13.26984127])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="go">0.8123917148020608</span>
+<span class="go">array([[ 13.6669421 ,   4.50426919],</span>
+<span class="go">       [ 11.51303651, -18.88126742]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">)</span>
+<span class="go">array([0.99827693, 0.99946753])</span>
 </pre></div>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="datacheese.regression.LinearRegression.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LinearRegression.fit" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LinearRegression.fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Fit linear regression model to training data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D training features array, of shape <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the
 number of training examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p></li>
-<li><p><strong>y</strong> (<em>numpy.ndarray</em>) – 1D training target values array, of length <code class="docutils literal notranslate"><span class="pre">n</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is
-the number of training examples.</p></li>
-<li><p><strong>Lambda</strong> (<em>float</em><em>, </em><em>default 0.0</em>) – Regularization constant, lambda, to be used as penalty term weight
-in ridge regression. Default is 0.0, which is the special case of
+<li><p><strong>Y</strong> (<em>numpy.ndarray</em>) – 2D training target values array, of shape <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">x</span> <span class="pre">t</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is
+the number of training examples and <code class="docutils literal notranslate"><span class="pre">t</span></code> is the number of targets.</p></li>
+<li><p><strong>Lambda</strong> (<em>float</em><em>, </em><em>default 0.0</em>) – Regularization constant to be used as L2 penalty term weight in
+ridge regression. Default is 0.0, which is the special case of
 ordinary least squares regression.</p></li>
 </ul>
 </dd>
@@ -438,36 +462,37 @@ ordinary least squares regression.</p></li>
 <dd><p>Use fitted weights to predict target values for test data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
+<dd class="field-odd"><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
 number of testing examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>y_pred</strong> – Array of predicted target values.</p>
+<dd class="field-even"><p><strong>Y_pred</strong> – 2D array of predicted target values.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="datacheese.regression.LinearRegression.score">
-<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LinearRegression.score" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.regression.LinearRegression.score" title="Permalink to this definition">#</a></dt>
 <dd><p>Use fitted weights to predict target values for test data and compute
-<span class="math notranslate nohighlight">\(R^2\)</span> accuracy using actual target values.</p>
+<span class="math notranslate nohighlight">\(R^2\)</span> accuracies using actual target values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
+<li><p><strong>X</strong> (<em>numpy.ndarray</em>) – 2D testing features array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">d</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is the
 number of testing examples and <code class="docutils literal notranslate"><span class="pre">d</span></code> is the number of dimensions.</p></li>
-<li><p><strong>y</strong> (<em>ndarray</em>) – 1D testing target values array, of length <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p></li>
+<li><p><strong>Y</strong> (<em>numpy.ndarray</em>) – 2D testing target values array, of shape <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">x</span> <span class="pre">t</span></code>, where <code class="docutils literal notranslate"><span class="pre">m</span></code> is
+the number of testing examples and <code class="docutils literal notranslate"><span class="pre">t</span></code> is the number of targets.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>r_squared</strong> – <span class="math notranslate nohighlight">\(R^2\)</span> accuracy score, a value between 0 and 1.</p>
+<dd class="field-even"><p><strong>r_squared</strong> – Array of <span class="math notranslate nohighlight">\(R^2\)</span> accuracy scores, i.e. values between 0 and 1.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>

@@ -20,48 +20,72 @@ class LinearRegression:
 
     Generate input data:
 
-    >>> X = np.array([[1, 1], [1, 2], [2, 2], [2, 3]], dtype=np.float64)
+    >>> X = np.array(
+    ...     [
+    ...         [1, 1, 0],
+    ...         [1, 2, -1],
+    ...         [2, -2, 0],
+    ...         [0, -3, 7],
+    ...         [8, -6, 0],
+    ...     ],
+    ...     dtype=np.float64,
+    ... )
     >>> X
-    array([[1., 1.],
-           [1., 2.],
-           [2., 2.],
-           [2., 3.]])
+    array([[ 1.,  1.,  0.],
+           [ 1.,  2., -1.],
+           [ 2., -2.,  0.],
+           [ 0., -3.,  7.],
+           [ 8., -6.,  0.]])
 
-    Generate target values using equation :math:`y = x_0 + 2 x_1 + 3`:
+    Generate target values using equations :math:`y_0 = x_0 + 2 x_1 + x_2 + 3`
+    and :math:`y_1 = 2 x_0 - x_1 - 3 x_2 - 2`:
 
-    >>> y = np.dot(X, np.array([1, 2])) + 3
-    >>> y
-    array([ 6.,  8.,  9., 11.])
+    >>> Y = np.matmul(
+    ...     X,
+    ...     np.array([[1, 2], [2, -1], [1, -3]]),
+    ... ) + np.array([3, -2])
+    >>> Y
+    array([[  6.,  -1.],
+           [  7.,   1.],
+           [  1.,   4.],
+           [  4., -20.],
+           [ -1.,  20.]])
 
     Fit model using data:
 
     >>> model = LinearRegression()
-    >>> model.fit(X, y)
+    >>> model.fit(X, Y)
 
     Use model to make predictions:
 
-    >>> X_test = np.array([[3, 5], [2, 4]], dtype=np.float64)
+    >>> X_test = np.array([[3, 5, -2], [-2, 4, 3]], dtype=np.float64)
     >>> X_test
-    array([[3., 5.],
-           [2., 4.]])
-    >>> y_test = np.dot(X_test, np.array([1, 2])) + 3
-    >>> y_test
-    array([16., 13.])
+    array([[ 3.,  5., -2.],
+           [-2.,  4.,  3.]])
+    >>> Y_test = np.matmul(
+    ...     X_test,
+    ...     np.array([[1, 2], [2, -1], [1, -3]]),
+    ... ) + np.array([3, -2])
+    >>> Y_test
+    array([[ 14.,   5.],
+           [ 12., -19.]])
     >>> model.predict(X_test)
-    array([16., 13.])
+    array([[ 14.,   5.],
+           [ 12., -19.]])
 
-    Compute :math:`R^2` accuracy:
+    Compute :math:`R^2` accuracies:
 
-    >>> model.score(X_test, y_test)
-    1.0
+    >>> model.score(X_test, Y_test)
+    array([1., 1.])
 
     Setting ``Lamdba`` to non-zero value performs ridge regression:
 
-    >>> model.fit(X, y, Lambda=0.5)
+    >>> model.fit(X, Y, Lambda=0.5)
     >>> model.predict(X_test)
-    array([16.87830688, 13.26984127])
-    >>> model.score(X_test, y_test)
-    0.8123917148020608
+    array([[ 13.6669421 ,   4.50426919],
+           [ 11.51303651, -18.88126742]])
+    >>> model.score(X_test, Y_test)
+    array([0.99827693, 0.99946753])
     """
 
     def __init__(self):
@@ -70,7 +94,7 @@ class LinearRegression:
     def fit(
         self,
         X: NDArray[np.float64],
-        y: NDArray[np.float64],
+        Y: NDArray[np.float64],
         Lambda: float = 0.0,
     ):
         """
@@ -82,18 +106,18 @@ class LinearRegression:
             2D training features array, of shape ``n x d``, where ``n`` is the
             number of training examples and ``d`` is the number of dimensions.
 
-        y : numpy.ndarray
-            1D training target values array, of length ``n``, where ``n`` is
-            the number of training examples.
+        Y : numpy.ndarray
+            2D training target values array, of shape ``n x t``, where ``n`` is
+            the number of training examples and ``t`` is the number of targets.
 
         Lambda : float, default 0.0
-            Regularization constant, lambda, to be used as penalty term weight
-            in ridge regression. Default is 0.0, which is the special case of
+            Regularization constant to be used as L2 penalty term weight in
+            ridge regression. Default is 0.0, which is the special case of
             ordinary least squares regression.
         """
         assert_ndarray_shape(X, shape=(None, None))
         n, self.d = X.shape
-        assert_ndarray_shape(y, shape=n)
+        assert_ndarray_shape(Y, shape=(n, None))
 
         # get one-padded training data
         Xp = pad_array(X, 'left', 1)
@@ -102,7 +126,7 @@ class LinearRegression:
         # solve linear system
         self.w = np.linalg.solve(
             (Xp.T @ Xp) + (Lambda * I),
-            Xp.T @ y,
+            Xp.T @ Y,
         )
         # set model as fitted
         self.fitted = True
@@ -113,14 +137,14 @@ class LinearRegression:
 
         Parameters
         ----------
-        X : ndarray
+        X : numpy.ndarray
             2D testing features array, of shape ``m x d``, where ``m`` is the
             number of testing examples and ``d`` is the number of dimensions.
 
         Returns
         -------
-        y_pred : ndarray
-            Array of predicted target values.
+        Y_pred : numpy.ndarray
+            2D array of predicted target values.
         """
         assert_fitted(self.fitted, self.__class__.__name__)
         assert_ndarray_shape(X, shape=(None, self.d))
@@ -135,36 +159,37 @@ class LinearRegression:
     def score(
         self,
         X: NDArray[np.float64],
-        y: NDArray[np.float64],
-    ) -> float:
+        Y: NDArray[np.float64],
+    ) -> NDArray[np.float64]:
         """
         Use fitted weights to predict target values for test data and compute
-        :math:`R^2` accuracy using actual target values.
+        :math:`R^2` accuracies using actual target values.
 
         Parameters
         ----------
-        X : ndarray
+        X : numpy.ndarray
             2D testing features array, of shape ``m x d``, where ``m`` is the
             number of testing examples and ``d`` is the number of dimensions.
 
-        y : ndarray
-            1D testing target values array, of length ``m``.
+        Y : numpy.ndarray
+            2D testing target values array, of shape ``m x t``, where ``m`` is
+            the number of testing examples and ``t`` is the number of targets.
 
         Returns
         -------
-        r_squared : float
-            :math:`R^2` accuracy score, a value between 0 and 1.
+        r_squared : numpy.ndarray
+            Array of :math:`R^2` accuracy scores, i.e. values between 0 and 1.
         """
         assert_ndarray_shape(X, shape=(None, self.d))
         m, _ = X.shape
-        assert_ndarray_shape(y, shape=m)
+        assert_ndarray_shape(Y, shape=(m, None))
 
         # get predicted target values
-        y_pred = self.predict(X)
+        Y_pred = self.predict(X)
         # compute square root of squared sum of regression
-        sqrt_ssr = np.linalg.norm(y - y_pred)
+        sqrt_ssr = np.linalg.norm(Y - Y_pred, axis=0)
         # compute square root of total sum of squares
-        sqrt_sst = np.linalg.norm(y - np.mean(y))
+        sqrt_sst = np.linalg.norm(Y - np.mean(Y), axis=0)
         # compute r squared
         r_squared = 1 - ((sqrt_ssr / sqrt_sst) ** 2)
 

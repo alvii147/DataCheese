@@ -7,9 +7,10 @@ def test_LinearRegression():
 
     n = 10
     d = 4
+    t = 2
 
     X = rng.normal(loc=0, scale=1, size=(n, d))
-    w = rng.normal(loc=0, scale=1, size=d)
+    w = rng.normal(loc=0, scale=1, size=(d, t))
     b = rng.normal(loc=0, scale=1, size=1)[0]
     y = (X @ w) + b
 
@@ -22,7 +23,7 @@ def test_LinearRegression():
     assert np.allclose(y_pred, y)
 
     r_squared = model.score(X, y)
-    assert r_squared == 1
+    assert np.allclose(r_squared, 1)
 
 
 def test_LogisticRegression_gradient():
