@@ -354,9 +354,9 @@ class LogisticRegression:
                 H = (Xp.T @ R @ Xp) + (Lambda * I)
                 H_pinv = np.linalg.pinv(H)
                 # change in weights
-                del_W = (
-                    H_pinv @ del_L.T.reshape(t, d + 1, -1)
-                ).T.reshape(d + 1, t)
+                del_W = (H_pinv @ del_L.T.reshape(t, d + 1, -1)).T.reshape(
+                    d + 1, t
+                )
 
             # update weights
             self.W -= del_W
