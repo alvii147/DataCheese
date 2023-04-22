@@ -113,7 +113,12 @@ class KNN:
 
         return y_pred
 
-    def score(self, X: NDArray[np.float64], y: NDArray[np.int64], k: int) -> float:
+    def score(
+        self,
+        X: NDArray[np.float64],
+        y: NDArray[np.int64],
+        k: int,
+    ) -> float:
         """
         Use stored training data to predict target values for test data and
         compute prediction score.

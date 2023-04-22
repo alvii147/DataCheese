@@ -19,7 +19,8 @@ knn_parameters = (
             dtype=int,
         ),
         3,
-        np.array([
+        np.array(
+            [
                 [0.1],
                 [1.1],
             ],
@@ -56,7 +57,8 @@ knn_parameters = (
             dtype=int,
         ),
         3,
-        np.array([
+        np.array(
+            [
                 [7, 7],
                 [4, 4],
             ],
@@ -101,7 +103,8 @@ knn_parameters = (
             dtype=int,
         ),
         5,
-        np.array([
+        np.array(
+            [
                 [2, 2, 2],
             ],
             dtype=np.float64,
