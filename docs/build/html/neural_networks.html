@@ -43,7 +43,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="regression" href="regression.html" />
-    <link rel="prev" title="activations" href="activations.html" />
+    <link rel="prev" title="knn" href="knn.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -296,6 +296,8 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="activations.html">activations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convolution.html">convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="knn.html">knn</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">neural_networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regression.html">regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">utils</a></li>
@@ -360,7 +362,7 @@ document.write(`
 <span id="neural-networks"></span><h1>neural_networks<a class="headerlink" href="#module-datacheese.neural_networks" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="datacheese.neural_networks.BaseLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">BaseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">BaseLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.BaseLayer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base class for neural network layer.</p>
 <dl class="field-list simple">
@@ -369,6 +371,7 @@ document.write(`
 <li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
 layer.</p></li>
 <li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default None</em>) – Random seed for reproducible results.</p></li>
 <li><p><strong>**kwargs</strong> (<em>dict</em>) – Layer specific parameters.</p></li>
 </ul>
 </dd>
@@ -471,7 +474,7 @@ antiderivative.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="datacheese.neural_networks.LinearLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">LinearLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LinearLayer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">LinearLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LinearLayer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
 <p>Layer with linear activation function.</p>
 <dl class="field-list simple">
@@ -527,7 +530,7 @@ antiderivative.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="datacheese.neural_networks.SigmoidLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">SigmoidLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.SigmoidLayer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">SigmoidLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.SigmoidLayer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
 <p>Layer with sigmoid activation function.</p>
 <dl class="field-list simple">
@@ -583,7 +586,7 @@ antiderivative.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="datacheese.neural_networks.TanhLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">TanhLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.TanhLayer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">TanhLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.TanhLayer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
 <p>Layer with hyperbolic tangent activation function.</p>
 <dl class="field-list simple">
@@ -639,7 +642,7 @@ antiderivative.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="datacheese.neural_networks.ReLULayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">ReLULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.ReLULayer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">ReLULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.ReLULayer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
 <p>Layer with rectified linear unit activation function.</p>
 <dl class="field-list simple">
@@ -695,7 +698,7 @@ antiderivative.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="datacheese.neural_networks.LeakyReLULayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">LeakyReLULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LeakyReLULayer" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datacheese.neural_networks.</span></span><span class="sig-name descname"><span class="pre">LeakyReLULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.neural_networks.LeakyReLULayer" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#datacheese.neural_networks.BaseLayer" title="datacheese.neural_networks.BaseLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseLayer</span></code></a></p>
 <p>Layer with leaky rectified linear unit activation function.</p>
 <dl class="field-list simple">
@@ -704,6 +707,7 @@ antiderivative.</p>
 <li><p><strong>n_inputs</strong> (<em>int</em>) – Number of inputs, usually equal to the number of nodes in the previous
 layer.</p></li>
 <li><p><strong>n_nodes</strong> (<em>int</em>) – Number of neuron nodes.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default None</em>) – Random seed for reproducible results.</p></li>
 <li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>default 0.01</em>) – Negative slope <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
 </ul>
 </dd>
@@ -892,12 +896,12 @@ number of testing examples and <code class="docutils literal notranslate"><span 
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="activations.html"
+       href="knn.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">activations</p>
+        <p class="prev-next-title">knn</p>
       </div>
     </a>
     <a class="right-next"

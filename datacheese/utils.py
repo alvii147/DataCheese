@@ -174,7 +174,7 @@ def pad_array(A: NDArray[np.float64], edge: str, c: float):
     Parameters
     ----------
     A : numpy.ndarray
-        Array to be padded.
+        2D array to be padded.
 
     edge : str
         Edge on which padding is to be added. Must be one of ``top``,
@@ -207,6 +207,8 @@ def pad_array(A: NDArray[np.float64], edge: str, c: float):
            [ 0.,  0.,  0.,  0.],
            [-1., -1., -1., -1.]])
     """
+    assert_ndarray_shape(A, shape=(None, None))
+
     # get padding width based on edge
     pad_width_map = {
         'top': ((1, 0), (0, 0)),
@@ -226,3 +228,73 @@ def pad_array(A: NDArray[np.float64], edge: str, c: float):
     Ap = np.pad(A, pad_width, mode='constant', constant_values=c)
 
     return Ap
+
+
+def pairwise_distances(
+    A1: NDArray[np.float64],
+    A2: NDArray[np.float64],
+    p: int = 2,
+) -> NDArray[np.float64]:
+    """
+    Compute pairwise Minkowski distances between two sets of 1D arrays.
+    Minkowski distance between vectors :math:`\\textbf(x)` and
+    :math:`\\textbf(y)` is defined as follows:
+
+    .. math::
+        D(\\textbf(x), \\textbf(y)) =
+        \\bigg(\\sum\\limits^n_{i = 1}{|x_i - y_i|^p}\\bigg)^\\frac{1}{p}
+
+    Parameters
+    ----------
+    A1 : numpy.ndarray
+        2D array. Must share same second axis length with that of ``A2``.
+
+    A2 : numpy.ndarray
+        2D array. Must share same second axis length with that of ``A1``.
+
+    p : int, default 2
+        Exponent of Minkowski distance.
+
+    Returns
+    -------
+    distances : ndarray
+        Array of pairwise distances.
+    """
+    assert_ndarray_shape(A1, shape=(None, None))
+    _, n = A1.shape
+    assert_ndarray_shape(A2, shape=(None, n))
+
+    distances = np.linalg.norm(A1 - A2[:, None], ord=p, axis=-1)
+
+    return distances
+
+
+def array_mode_value(A: NDArray[Any], seed: int | None = None) -> Any:
+    """
+    Extract the mode of a 1D array. Ties are broken randomly.
+
+    Parameters
+    ----------
+    A : numpy.ndarray
+        1D array.
+
+    seed : int or None, default None
+        Random seed for reproducible results.
+
+    Returns
+    -------
+    mode : any
+        Computed mode value.
+    """
+    assert_ndarray_shape(A, shape=None)
+
+    rng = np.random.default_rng(seed)
+
+    # get unique values and counts
+    unique, unique_counts = np.unique(A, return_counts=True)
+    # get values with most counts
+    modes = unique[unique_counts == np.amax(unique_counts)]
+    # select random mode using random number generator
+    mode = rng.choice(modes[~np.isnan(modes)])
+
+    return mode

@@ -38,6 +38,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'utils';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -294,6 +295,8 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="activations.html">activations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convolution.html">convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="knn.html">knn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="neural_networks.html">neural_networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regression.html">regression</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">utils</a></li>
@@ -469,7 +472,7 @@ document.write(`
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Array to be padded.</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – 2D array to be padded.</p></li>
 <li><p><strong>edge</strong> (<em>str</em>) – Edge on which padding is to be added. Must be one of <code class="docutils literal notranslate"><span class="pre">top</span></code>,
 <code class="docutils literal notranslate"><span class="pre">bottom</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, or <code class="docutils literal notranslate"><span class="pre">right</span></code>.</p></li>
 <li><p><strong>c</strong> (<em>float</em>) – Constant to be padded.</p></li>
@@ -501,6 +504,52 @@ document.write(`
 <span class="go">       [-1., -1., -1., -1.]])</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datacheese.utils.pairwise_distances">
+<span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">pairwise_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.utils.pairwise_distances" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute pairwise Minkowski distances between two sets of 1D arrays.
+Minkowski distance between vectors <span class="math notranslate nohighlight">\(\textbf(x)\)</span> and
+<span class="math notranslate nohighlight">\(\textbf(y)\)</span> is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[D(\textbf(x), \textbf(y)) =
+\bigg(\sum\limits^n_{i = 1}{|x_i - y_i|^p}\bigg)^\frac{1}{p}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A1</strong> (<em>numpy.ndarray</em>) – 2D array. Must share same second axis length with that of <code class="docutils literal notranslate"><span class="pre">A2</span></code>.</p></li>
+<li><p><strong>A2</strong> (<em>numpy.ndarray</em>) – 2D array. Must share same second axis length with that of <code class="docutils literal notranslate"><span class="pre">A1</span></code>.</p></li>
+<li><p><strong>p</strong> (<em>int</em><em>, </em><em>default 2</em>) – Exponent of Minkowski distance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>distances</strong> – Array of pairwise distances.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datacheese.utils.array_mode_value">
+<span class="sig-prename descclassname"><span class="pre">datacheese.utils.</span></span><span class="sig-name descname"><span class="pre">array_mode_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datacheese.utils.array_mode_value" title="Permalink to this definition">#</a></dt>
+<dd><p>Extract the mode of a 1D array. Ties are broken randomly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – 1D array.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>default None</em>) – Random seed for reproducible results.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>mode</strong> – Computed mode value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>any</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -541,6 +590,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.assert_fitted"><code class="docutils literal notranslate"><span class="pre">assert_fitted()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.assert_str_choice"><code class="docutils literal notranslate"><span class="pre">assert_str_choice()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.pad_array"><code class="docutils literal notranslate"><span class="pre">pad_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.pairwise_distances"><code class="docutils literal notranslate"><span class="pre">pairwise_distances()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datacheese.utils.array_mode_value"><code class="docutils literal notranslate"><span class="pre">array_mode_value()</span></code></a></li>
 </ul>
   </nav></div>
 

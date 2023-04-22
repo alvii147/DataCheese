@@ -26,15 +26,24 @@ class BaseLayer:
     n_nodes : int
         Number of neuron nodes.
 
+    seed : int or None, default None
+        Random seed for reproducible results.
+
     **kwargs : dict
         Layer specific parameters.
     """
 
-    def __init__(self, n_inputs: int, n_nodes: int, **kwargs):
-        rng = np.random.default_rng()
-
+    def __init__(
+        self,
+        n_inputs: int,
+        n_nodes: int,
+        seed: int | None = None,
+        **kwargs,
+    ):
         self.n_inputs = n_inputs
         self.n_nodes = n_nodes
+        self.seed = seed
+        self.rng = np.random.default_rng(self.seed)
 
         # output of layer
         # this is of side n_nodes + 1, last node is bias node
@@ -44,7 +53,7 @@ class BaseLayer:
         # delta errors
         self.delta = np.zeros(self.n_nodes, dtype=np.float64)
         # weights, randomly chosen over Gaussian distribution
-        self.w = rng.normal(
+        self.w = self.rng.normal(
             loc=0,
             scale=1,
             size=(self.n_nodes, self.n_inputs + 1),
@@ -290,12 +299,21 @@ class LeakyReLULayer(BaseLayer):
     n_nodes : int
         Number of neuron nodes.
 
+    seed : int or None, default None
+        Random seed for reproducible results.
+
     alpha : float, default 0.01
         Negative slope :math:`\\alpha`.
     """
 
-    def __init__(self, n_inputs, n_nodes, **kwargs):
-        super().__init__(n_inputs, n_nodes, **kwargs)
+    def __init__(
+        self,
+        n_inputs: int,
+        n_nodes: int,
+        seed: int | None = None,
+        **kwargs,
+    ):
+        super().__init__(n_inputs, n_nodes, seed=seed, **kwargs)
 
         self.alpha = kwargs.get('alpha', 0.01)
 

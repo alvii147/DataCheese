@@ -6,6 +6,7 @@ API Documentation
 
    activations
    convolution
+   knn
    neural_networks
    regression
    utils
