@@ -328,7 +328,7 @@ class LogisticRegression:
             # construct identity matrix
             diag_I = np.diag_indices(d + 1)
             I = np.zeros((t, d + 1, d + 1), dtype=np.float64)
-            I[:, *diag_I] = 1
+            I[:, diag_I[0], diag_I[1]] = 1
 
             # construct diagonal matrix of sigmoid derivatives
             diag_R = np.diag_indices(n)
