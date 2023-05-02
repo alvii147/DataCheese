@@ -300,7 +300,7 @@ class LogisticRegression:
             termination criteria.
 
         max_iters : int, default 1000
-            Maximum number of iterations
+            Maximum number of iterations.
 
         method : str, default ``gradient``
             Method to use for computation. Must be either ``gradient``,
@@ -467,13 +467,13 @@ class LogisticRegression:
         )
 
         # if accuracy metric chosen
-        if metric == 'accuracy':
+        if metric.lower() == 'accuracy':
             # get predicted targets
             Y_pred = self.predict(X)
             # get mean accuracy
             score = np.mean(Y_pred == Y, axis=0)
         # if log loss metric is chosen
-        elif metric == 'log_loss':
+        elif metric.lower() == 'log_loss':
             # get target probability values
             Y_prob = self.predict_prob(X)
             # compute negative loss probabilities
