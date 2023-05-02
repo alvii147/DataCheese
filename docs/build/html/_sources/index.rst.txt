@@ -1,9 +1,10 @@
-Welcome to DataCheese's documentation!
-======================================
+DataCheese
+==========
+
+DataCheese is a Python library with implementations of popular data science and machine learning algorithms.
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Contents:
+   :maxdepth: 2
 
    api_documentation
 
