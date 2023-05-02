@@ -109,7 +109,11 @@ class KNN:
         # get top-k neighbours
         neighbours = self.y_train[np.argpartition(distances, k, axis=1)[:, :k]]
         # get predicted labels using mode
-        y_pred = np.apply_along_axis(array_mode_value, 1, neighbours)
+        y_pred = np.apply_along_axis(
+            lambda A: array_mode_value(A, self.seed),
+            1,
+            neighbours,
+        )
 
         return y_pred
 
