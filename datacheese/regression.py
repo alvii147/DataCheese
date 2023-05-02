@@ -350,7 +350,7 @@ class LogisticRegression:
             # if newton's method chosen
             elif method == 'newton':
                 # compute Hessian matrix
-                R[:, *diag_R] = sigmoid_derivative(f=Y_prob).T
+                R[:, diag_R[0], diag_R[1]] = sigmoid_derivative(f=Y_prob).T
                 H = (Xp.T @ R @ Xp) + (Lambda * I)
                 H_pinv = np.linalg.pinv(H)
                 # change in weights
