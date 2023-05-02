@@ -5,3 +5,26 @@ extend-exclude = '''
     .venv/.* |
     docs/.*
 '''
+
+[tool.poetry]
+name = "datacheese"
+version = "0.1.0"
+description = "Python library with implementations of popular data science and machine learning algorithms"
+authors = ["Zahin Zaman <alvii147@gmail.com>"]
+license = "BSD 3-Clause License"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.24.3"
+
+[tool.poetry.dev-dependencies]
+black = "^23.3.0"
+coverage = "^7.2.5"
+flake8 = "^6.0.0"
+pydata-sphinx-theme = "^0.13.3"
+pytest = "^7.3.1"
+Sphinx = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
