@@ -83,7 +83,7 @@ class KMeans:
         max_iters: int = 1000,
     ) -> tuple[NDArray[np.int64], NDArray[np.float64]]:
         """
-        Fit model by clustering on given data.
+        Fit model by clustering given data into ``k`` clusters.
 
         Parameters
         ----------
@@ -151,7 +151,7 @@ class KMeans:
 
     def predict(self, X: NDArray[np.float64]) -> NDArray[np.float64]:
         """
-        Use stored centroids to predict labels for given data.
+        Use stored cluster centroids to predict labels for given data.
 
         Parameters
         ----------

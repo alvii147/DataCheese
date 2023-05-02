@@ -5,6 +5,7 @@ API Documentation
    :maxdepth: 2
 
    activations
+   clustering
    convolution
    knn
    neural_networks
