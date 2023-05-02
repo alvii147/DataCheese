@@ -66,7 +66,7 @@ def test_kmeans(
                 min_distance_label = j
                 min_distance = distance
 
-        wcss += min_distance ** 2
+        wcss += min_distance**2
         assert min_distance_label == labels[i]
 
     assert np.allclose(model.score(X_test, metric='wcss'), wcss)

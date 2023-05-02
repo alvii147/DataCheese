@@ -1,6 +1,5 @@
 import numpy as np
 from numpy.typing import NDArray
-from typing import Any
 from .utils import (
     assert_ndarray_shape,
     assert_fitted,
@@ -210,7 +209,7 @@ class KMeans:
             # compute pairwise distances between given data and centroids
             distances = pairwise_distances(X, self.centroids, p=2)
             # compute squared sum of distances between data and centroids
-            score = np.sum(np.amin(distances ** 2, axis=0))
+            score = np.sum(np.amin(distances**2, axis=0))
         # if BCSS metric is chosen
         elif metric.lower() == 'bcss':
             # compute global centroid by taking average of centroids
@@ -222,6 +221,6 @@ class KMeans:
             )[0, :]
             # compute squared sum of distances between centroids and
             # global centroid
-            score = np.sum(distances ** 2)
+            score = np.sum(distances**2)
 
         return score
