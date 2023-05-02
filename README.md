@@ -39,17 +39,6 @@ from datacheese.neural_networks import (
    ReLULayer,
 )
 
-X = np.array(
-    [
-        [1, 1, 0],
-        [1, 2, -1],
-        [2, -2, 0],
-        [0, -3, 7],
-        [8, -6, 0],
-    ],
-    dtype=np.float64,
-)
-
 # number of data patterns
 n_patterns = 5
 # number of feature dimensions
