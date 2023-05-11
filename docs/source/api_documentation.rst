@@ -9,5 +9,6 @@ API Documentation
    convolution
    knn
    neural_networks
+   processing
    regression
    utils
