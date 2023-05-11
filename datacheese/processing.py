@@ -18,7 +18,7 @@ class KFoldCrossValidation:
     randomize : bool, default True
         Whether or not to shuffle the data before splitting.
 
-    seed : bool, default None
+    seed : int or None, default None
         Random seed used to shuffle the data.
 
     Examples
@@ -81,7 +81,7 @@ class KFoldCrossValidation:
         data: NDArray[Any],
         k: int,
         randomize: bool = True,
-        seed: bool = None,
+        seed: int | None = None,
     ):
         # create copy of data
         data_copy = data.copy()

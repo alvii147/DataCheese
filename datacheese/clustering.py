@@ -12,6 +12,11 @@ class KMeans:
     """
     K-means clustering model.
 
+    Parameters
+    ----------
+    seed : int or None, default None
+        Random seed used to shuffle the data.
+
     Examples
     --------
     >>> import numpy as np
