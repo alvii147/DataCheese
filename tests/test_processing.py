@@ -33,7 +33,11 @@ def test_KFoldCrossValidation(data_shape, k):
     X = rng.choice(data_range, size=data_shape, replace=False)
     test_data_seen = []
 
-    for train_data, test_data in KFoldCrossValidation(X, k, randomize=True):
+    for i, (train_data, test_data) in enumerate(
+        KFoldCrossValidation(X, k, randomize=True)
+    ):
+        assert i < k
+
         allowed_fold_sizes = (X.shape[0] // k, (X.shape[0] // k) + 1)
 
         assert train_data.shape[0] + test_data.shape[0] == X.shape[0]
@@ -50,8 +54,10 @@ def test_KFoldCrossValidation(data_shape, k):
         assert np.amin(all_unique_data) == 0
         assert np.amax(all_unique_data) == data_range - 1
 
-        for i in flattened_test_data:
-            test_data_seen.append(i)
+        for j in flattened_test_data:
+            test_data_seen.append(j)
+
+    assert i == k - 1
 
     unique_test_data_seen = list(set(list(test_data_seen)))
     assert len(unique_test_data_seen) == data_range
