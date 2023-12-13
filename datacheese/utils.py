@@ -208,24 +208,23 @@ def pad_array(A: NDArray[np.float64], edge: str, c: float):
            [-1., -1., -1., -1.]])
     """
     assert_ndarray_shape(A, shape=(None, None))
-
-    # get padding width based on edge
-    pad_width_map = {
-        'top': ((1, 0), (0, 0)),
-        'bottom': ((0, 1), (0, 0)),
-        'left': ((0, 0), (1, 0)),
-        'right': ((0, 0), (0, 1)),
-    }
+    n, m = A.shape
 
     assert_str_choice(
         edge,
-        pad_width_map.keys(),
+        ['top', 'bottom', 'left', 'right'],
         str_name='edge',
         case_insensitive=True,
     )
 
-    pad_width = pad_width_map[edge]
-    Ap = np.pad(A, pad_width, mode='constant', constant_values=c)
+    if edge == 'top':
+        Ap = np.r_[np.full((1, m), c), A]
+    elif edge == 'bottom':
+        Ap = np.r_[A, np.full((1, m), c)]
+    elif edge == 'left':
+        Ap = np.c_[np.full((n, 1), c), A]
+    elif edge == 'right':
+        Ap = np.c_[A, np.full((n, 1), c)]
 
     return Ap
 

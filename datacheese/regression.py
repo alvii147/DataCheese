@@ -324,7 +324,7 @@ class LogisticRegression:
         self.W = np.zeros((d + 1, t), dtype=np.float64)
 
         # only for newton's method
-        if method == 'newton':
+        if method.lower() == 'newton':
             # construct identity matrix
             diag_I = np.diag_indices(d + 1)
             I = np.zeros((t, d + 1, d + 1), dtype=np.float64)
@@ -344,11 +344,11 @@ class LogisticRegression:
                 break
 
             # if gradient descent method chosen
-            if method == 'gradient':
+            if method.lower() == 'gradient':
                 # change in weights
                 del_W = lr * del_L
             # if newton's method chosen
-            elif method == 'newton':
+            elif method.lower() == 'newton':
                 # compute Hessian matrix
                 R[:, diag_R[0], diag_R[1]] = sigmoid_derivative(f=Y_prob).T
                 H = (Xp.T @ R @ Xp) + (Lambda * I)
