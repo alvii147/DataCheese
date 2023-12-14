@@ -34,9 +34,9 @@ The `MultiLayerPerceptron` model can be used to train a feed-forward neural netw
 ```python
 import numpy as np
 from datacheese.neural_networks import (
-   MultiLayerPerceptron,
-   SigmoidLayer,
-   ReLULayer,
+    MultiLayerPerceptron,
+    SigmoidLayer,
+    ReLULayer,
 )
 
 # number of data patterns

@@ -342,9 +342,9 @@ class MultiLayerPerceptron:
     --------
     >>> import numpy as np
     >>> from datacheese.neural_networks import (
-    ...    MultiLayerPerceptron,
-    ...    SigmoidLayer,
-    ...    ReLULayer,
+    ...     MultiLayerPerceptron,
+    ...     SigmoidLayer,
+    ...     ReLULayer,
     ... )
 
     Generate training data:
