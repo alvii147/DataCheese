@@ -1,0 +1,11 @@
+html[data-theme="light"] {
+    .bd-header-announcement {
+        background-color: #00b259;
+    }
+}
+
+html[data-theme="dark"] {
+    .bd-header-announcement {
+        background-color: #003f1f;
+    }
+}

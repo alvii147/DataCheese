@@ -32,7 +32,10 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'pydata_sphinx_theme'
-html_static_path = ['_static']
+html_static_path = []
+html_css_files = [
+    'css/custom.css',
+]
 
 # preserve default argument values as in source code
 autodoc_preserve_defaults = True
@@ -47,19 +50,19 @@ autodoc_member_order = 'bysource'
 
 html_logo = '../img/logo_full.png'
 
+palestine_banner = '''
+Israel is committing <strong><span style="color: #CE1126">genocide</span></strong>, killing tens of thousands of Palestinian civilians, while displacing millions more.<br />
+Please consider donating to <a href="https://pcrf.net" target="_blank" rel="noopener noreferrer" />Palestine Children's Relief Fund.</a>
+'''
+
 html_theme_options = {
+    'announcement': palestine_banner,
     'icon_links': [
         {
             'name': 'GitHub',
             'url': 'https://github.com/alvii147/DataCheese',
             'icon': 'fab fa-github-square',
             'type': 'fontawesome',
-        },
-    ],
-    'external_links': [
-        {
-            'name': 'Donate to Turkey & Syria',
-            'url': 'https://www.islamicreliefcanada.org/emergencies/turkey-syria-earthquake-appeal/',
         },
     ],
     'show_nav_level': 1,
