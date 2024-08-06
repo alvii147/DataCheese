@@ -1,4 +1,4 @@
-[![All Eyes On Bangladesh](https://github.com/alvii147/peoples-banner-for-bangladesh/blob/main/github/banner-red.svg)](https://www.aljazeera.com/program/newsfeed/2024/7/24/bangladeshs-deadly-protests-explained)
+[![Free Palestine](https://github.com/alvii147/hinds-banner/blob/main/github/free-palestine-olive.svg)](https://www.pcrf.net/)
 
 <p align="center">
     <img alt="DataCheese logo" src="docs/img/logo_full.png" width=600 />
