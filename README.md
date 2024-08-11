@@ -1,4 +1,6 @@
-[![Free Palestine](https://github.com/alvii147/hinds-banner/blob/main/github/free-palestine-olive.svg)](https://www.pcrf.net/)
+[![Free Palestine](https://hinds-banner.vercel.app/free-palestine?variant=olive)](https://www.pcrf.net/)
+
+[![Genocide Watch](https://hinds-banner.vercel.app/genocide-watch?variant=olive)](https://www.pcrf.net/)
 
 <p align="center">
     <img alt="DataCheese logo" src="docs/img/logo_full.png" width=600 />
